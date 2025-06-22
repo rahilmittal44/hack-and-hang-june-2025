@@ -9,8 +9,8 @@ module pig_master_addr::pig_master {
     use std::signer;
     use aptos_std::smart_table;
     use aptos_std::smart_table::SmartTable;
+    use aptos_framework::aggregator_v2;
     use aptos_framework::event::emit;
-    use aptos_framework::transaction_context;
 
     /// Function is not implemented.
     const E_NOT_IMPLEMENTED: u64 = 1;
@@ -18,10 +18,14 @@ module pig_master_addr::pig_master {
     /// Points to win the game are currently set to 100, we may change it to be lower to be a faster game.
     const POINTS_TO_WIN: u64 = 100;
 
+    const MAX_U64: u64 = 18446744073709551615;
+
     /// Global game state, contains all the stats of all users
     /// and their top scores.  Note that this currently is not an ordered scoreboard.
     struct GameState has key {
         stats: SmartTable<address, UserStats>,
+        total_games_played: aggregator_v2::Aggregator<u64>,
+        total_players: aggregator_v2::Aggregator<u64>,
     }
 
     /// Stats of a specific user along the way
@@ -54,6 +58,8 @@ module pig_master_addr::pig_master {
     fun initialize(deployer: &signer) {
         let game_state = GameState {
             stats: smart_table::new<address, UserStats>(),
+            total_games_played: aggregator_v2::create_aggregator_with_value(0, MAX_U64),
+            total_players: aggregator_v2::create_aggregator_with_value(0, MAX_U64),
         };
         move_to(deployer, game_state);
     }
@@ -90,6 +96,7 @@ module pig_master_addr::pig_master {
                 top_result: result,
                 games_played: 1,
             });
+            aggregator_v2::add(&mut game_state.total_players, 1);
         } else {
             // If the user exists, update their stats
             let user_stats = game_state.stats.borrow_mut(user_address);
@@ -98,6 +105,8 @@ module pig_master_addr::pig_master {
             };
             user_stats.games_played += 1;
         };
+
+        aggregator_v2::add(&mut game_state.total_games_played, 1);
 
         // Emit an event for indexing ends of games
         emit(GameEndResult {
@@ -141,6 +150,18 @@ module pig_master_addr::pig_master {
                 game_state.stats.borrow(user).games_played
             )
         }
+    }
+
+    #[view]
+    public fun total_games_played(): u64 acquires GameState {
+        let game_state = &GameState[@pig_master_addr];
+        aggregator_v2::read(&game_state.total_games_played)
+    }
+
+    #[view]
+    public fun total_players(): u64 acquires GameState {
+        let game_state = &GameState[@pig_master_addr];
+        aggregator_v2::read(&game_state.total_players)
     }
 
     public fun score(self: &GameResult): u64 {
