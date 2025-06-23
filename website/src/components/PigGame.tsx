@@ -220,27 +220,69 @@ export function PigGame() {
   }, [data]);
 
   return (
-    <div className="flex flex-col gap-6">
-      Game Address:{" "}
-      <Input disabled={!client} placeholder="Game Address" onChange={(e) => setModuleAddress(e.target.value)} />
-      <h4 className="text-lg font-medium">Game State:</h4>
-      <h5 className="text-lg font-medium">Roll: {lastRoll}</h5>
-      <h5 className="text-lg font-medium">Round: {round}</h5>
-      <h5 className="text-lg font-medium">Turn: {turn}</h5>
-      <h5 className="text-lg font-medium">Turn Score: {gameTurnScore}</h5>
-      <h5 className="text-lg font-medium">Total Score: {gameTotalScore}</h5>
-      <Button disabled={!client} onClick={rollDice}>
-        Roll
-      </Button>
-      <Button disabled={!client} onClick={holdDice}>
-        Hold
-      </Button>
-      <Button disabled={!client} onClick={completeGame}>
-        Complete Game
-      </Button>
-      <Button disabled={!client} onClick={resetGame}>
-        Reset Game
-      </Button>
+    <div className="flex flex-col gap-8">
+      {/* Game Address Input */}
+      <div className="space-y-2">
+        <label className="matrix-subtitle text-sm">CONTRACT ADDRESS:</label>
+        <Input
+          disabled={!client}
+          placeholder="Enter contract address..."
+          value={moduleAddress}
+          onChange={(e) => setModuleAddress(e.target.value)}
+          className="matrix-input"
+        />
+      </div>
+
+      {/* Game State Display */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="matrix-card p-6 space-y-4">
+          <h4 className="matrix-subtitle text-lg text-center">GAME MATRIX</h4>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="matrix-text">ROLL:</span>
+              <span className="matrix-glow text-xl font-bold">{lastRoll}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="matrix-text">ROUND:</span>
+              <span className="matrix-glow text-xl font-bold">{round}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="matrix-text">TURN:</span>
+              <span className="matrix-glow text-xl font-bold">{turn}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="matrix-card p-6 space-y-4">
+          <h4 className="matrix-subtitle text-lg text-center">SCORE MATRIX</h4>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="matrix-text">TURN SCORE:</span>
+              <span className="matrix-glow text-xl font-bold">{gameTurnScore}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="matrix-text">TOTAL SCORE:</span>
+              <span className="matrix-glow text-xl font-bold">{gameTotalScore}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Game Controls */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Button disabled={!client} onClick={rollDice} variant="matrix" className="h-12 text-sm">
+          ROLL DICE
+        </Button>
+        <Button disabled={!client} onClick={holdDice} variant="matrix" className="h-12 text-sm">
+          HOLD
+        </Button>
+        <Button disabled={!client} onClick={completeGame} variant="matrix" className="h-12 text-sm">
+          COMPLETE
+        </Button>
+        <Button disabled={!client} onClick={resetGame} variant="matrix" className="h-12 text-sm">
+          RESET
+        </Button>
+      </div>
     </div>
   );
 }

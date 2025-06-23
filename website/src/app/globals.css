@@ -2,68 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap");
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 120 100% 2%;
+    --foreground: 120 100% 50%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 120 100% 3%;
+    --card-foreground: 120 100% 60%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover: 120 100% 3%;
+    --popover-foreground: 120 100% 60%;
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 120 100% 50%;
+    --primary-foreground: 120 100% 2%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --secondary-text: 215, 16%, 47%;
+    --secondary: 120 100% 8%;
+    --secondary-foreground: 120 100% 70%;
+    --secondary-text: 120, 100%, 40%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 120 100% 8%;
+    --muted-foreground: 120 100% 40%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --accent: 120 100% 15%;
+    --accent-foreground: 120 100% 80%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 120 100% 2%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --border: 120 100% 15%;
+    --input: 120 100% 8%;
+    --ring: 120 100% 50%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 120 100% 2%;
+    --foreground: 120 100% 50%;
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: 120 100% 3%;
+    --card-foreground: 120 100% 60%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 120 100% 3%;
+    --popover-foreground: 120 100% 60%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+    --primary: 120 100% 50%;
+    --primary-foreground: 120 100% 2%;
 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 120 100% 8%;
+    --secondary-foreground: 120 100% 70%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 120 100% 8%;
+    --muted-foreground: 120 100% 40%;
 
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 120 100% 15%;
+    --accent-foreground: 120 100% 80%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 120 100% 2%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 120 100% 15%;
+    --input: 120 100% 8%;
+    --ring: 120 100% 50%;
   }
 }
 
@@ -73,5 +75,263 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Share Tech Mono", monospace;
+    background: linear-gradient(135deg, #001a00 0%, #003300 50%, #001a00 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Matrix rain effect */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(0, 255, 0, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #001a00;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00cc00;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background: rgba(0, 255, 0, 0.3);
+    color: #00ff00;
+  }
+
+  ::-moz-selection {
+    background: rgba(0, 255, 0, 0.3);
+    color: #00ff00;
+  }
+}
+
+@layer components {
+  .matrix-glow {
+    text-shadow:
+      0 0 5px #00ff00,
+      0 0 10px #00ff00,
+      0 0 15px #00ff00,
+      0 0 20px #00ff00;
+  }
+
+  .matrix-border {
+    border: 1px solid #00ff00;
+    box-shadow:
+      0 0 5px #00ff00,
+      inset 0 0 5px rgba(0, 255, 0, 0.1);
+  }
+
+  .matrix-card {
+    background: linear-gradient(145deg, #001a00, #003300);
+    border: 1px solid #00ff00;
+    box-shadow:
+      0 0 10px rgba(0, 255, 0, 0.3),
+      inset 0 0 20px rgba(0, 255, 0, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .matrix-button {
+    background: linear-gradient(145deg, #004400, #006600);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+    box-shadow:
+      0 0 10px rgba(0, 255, 0, 0.3),
+      inset 0 0 10px rgba(0, 255, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .matrix-button:hover {
+    background: linear-gradient(145deg, #006600, #008800);
+    box-shadow:
+      0 0 20px rgba(0, 255, 0, 0.5),
+      inset 0 0 15px rgba(0, 255, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .matrix-input {
+    background: rgba(0, 26, 0, 0.8);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    box-shadow:
+      0 0 5px rgba(0, 255, 0, 0.3),
+      inset 0 0 10px rgba(0, 255, 0, 0.1);
+  }
+
+  .matrix-input:focus {
+    box-shadow:
+      0 0 15px rgba(0, 255, 0, 0.5),
+      inset 0 0 15px rgba(0, 255, 0, 0.2);
+  }
+
+  .matrix-text {
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+  }
+
+  .matrix-title {
+    font-family: "Orbitron", monospace;
+    font-weight: 900;
+    color: #00ff00;
+    text-shadow:
+      0 0 10px #00ff00,
+      0 0 20px #00ff00,
+      0 0 30px #00ff00;
+  }
+
+  .matrix-subtitle {
+    font-family: "Orbitron", monospace;
+    font-weight: 700;
+    color: #00cc00;
+    text-shadow: 0 0 8px #00cc00;
+  }
+
+  .matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.1;
+  }
+
+  .matrix-rain::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 0, 0.1) 2px,
+      rgba(0, 255, 0, 0.1) 4px
+    );
+    animation: matrix-rain 20s linear infinite;
+  }
+
+  @keyframes matrix-rain {
+    0% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(50%);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-glow {
+    from {
+      box-shadow:
+        0 0 5px rgba(0, 255, 0, 0.3),
+        0 0 10px rgba(0, 255, 0, 0.2),
+        0 0 15px rgba(0, 255, 0, 0.1);
+    }
+    to {
+      box-shadow:
+        0 0 10px rgba(0, 255, 0, 0.5),
+        0 0 20px rgba(0, 255, 0, 0.3),
+        0 0 30px rgba(0, 255, 0, 0.2);
+    }
+  }
+
+  .matrix-flicker {
+    animation: matrix-flicker 3s infinite;
+  }
+
+  @keyframes matrix-flicker {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    75% {
+      opacity: 0.9;
+    }
+  }
+
+  .matrix-scan {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .matrix-scan::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+    animation: matrix-scan 3s ease-in-out infinite;
+  }
+
+  @keyframes matrix-scan {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  .matrix-typing {
+    overflow: hidden;
+    border-right: 2px solid #00ff00;
+    white-space: nowrap;
+    animation:
+      matrix-typing 3s steps(40, end),
+      matrix-blink-caret 0.75s step-end infinite;
+  }
+
+  @keyframes matrix-typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes matrix-blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: #00ff00;
+    }
   }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "Aptos Fullstack Template",
-  "short_name": "Aptos Template",
+  "name": "Pig Game - Matrix Edition",
+  "short_name": "Pig Matrix",
   "icons": [
     {
       "src": "/icons/icon-192x192.png",
@@ -21,5 +21,7 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "theme_color": "#00ff00",
+  "background_color": "#001a00"
 }
