@@ -18,7 +18,7 @@ export function PigGame() {
   const queryClient = useQueryClient();
 
   const [moduleAddress, setModuleAddress] = useState<string | undefined>(
-    process.env.NEXT_DEFAULT_CONTRACT_ADDRESS ?? "0x0",
+    process.env.NEXT_DEFAULT_CONTRACT_ADDRESS ?? "0xcf7aa1cd8e770d56c8f5f32cf42999b18397b92822a5da877122d94784dc1624",
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [gameTotalScore, setGameTotalScore] = useState<number>(0);
