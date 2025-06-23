@@ -41,14 +41,39 @@ module pig_game_addr::pig_game {
     // ======================== View (Read) Functions ========================
 
     #[view]
-    /// Return the users top score from the current game
-    public fun current_score(user: address) {
+    /// Return the last dice roll
+    public fun last_roll(user: address): u8 {
+        abort E_NOT_IMPLEMENTED
+    }
+
+    #[view]
+    public fun round(user: address): u64 {
+        abort E_NOT_IMPLEMENTED
+    }
+
+    #[view]
+    public fun turn(user: address): u64 {
+        abort E_NOT_IMPLEMENTED
+    }
+
+    #[view]
+    public fun game_over(user: address): bool {
+        abort E_NOT_IMPLEMENTED
+    }
+
+    #[view]
+    public fun turn_score(user: address): u64 {
+        abort E_NOT_IMPLEMENTED
+    }
+
+    #[view]
+    public fun total_score(user: address): u64 {
         abort E_NOT_IMPLEMENTED
     }
 
     #[view]
     /// Return the user's top score within this game's context
-    public fun user_top_score(user: address) {
+    public fun user_top_score(user: address): u64 {
         abort E_NOT_IMPLEMENTED
     }
 

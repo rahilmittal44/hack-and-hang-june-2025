@@ -38,7 +38,7 @@ module pig_master_addr::pig_master {
     struct GameResult has store, copy, drop {
         score: u64,
         rounds: u64,
-        rolls: u64,
+        turns: u64,
     }
 
     #[event]
@@ -78,7 +78,7 @@ module pig_master_addr::pig_master {
         user: &signer,
         score: u64,
         rounds: u64,
-        rolls: u64,
+        turns: u64,
     ): GameResult acquires GameState {
         let user_address = signer::address_of(user);
         let game_state = &mut GameState[@pig_master_addr];
@@ -87,7 +87,7 @@ module pig_master_addr::pig_master {
         let result = GameResult {
             score,
             rounds,
-            rolls
+            turns
         };
 
         if (!game_state.stats.contains(user_address)) {
@@ -172,7 +172,7 @@ module pig_master_addr::pig_master {
         self.rounds
     }
 
-    public fun rolls(self: &GameResult): u64 {
-        self.rolls
+    public fun turns(self: &GameResult): u64 {
+        self.turns
     }
 }
