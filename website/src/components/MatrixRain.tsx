@@ -37,6 +37,7 @@ export function MatrixRain() {
     function draw() {
       // Black BG for the canvas
       // Translucent to show trail
+      if (!ctx || !canvas) return;
       ctx.fillStyle = "rgba(0, 26, 0, 0.04)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
