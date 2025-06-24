@@ -78,7 +78,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: "Share Tech Mono", monospace;
-    background: linear-gradient(135deg, #F5E2C4 0%, #E5D3B3 50%, #F5E2C4 100%);
+    background: linear-gradient(135deg, #f5e2c4 0%, #e5d3b3 50%, #f5e2c4 100%);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -92,10 +92,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-      radial-gradient(circle at 20% 50%, rgba(0,0,0,0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(0,0,0,0.04) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, rgba(0,0,0,0.06) 0%, transparent 50%);
+    background:
+      radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(0, 0, 0, 0.06) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
   }
@@ -106,7 +106,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #F5E2C4;
+    background: #f5e2c4;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -120,59 +120,59 @@
 
   /* Selection styling */
   ::selection {
-    background: rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.15);
     color: #000;
   }
 
   ::-moz-selection {
-    background: rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.15);
     color: #000;
   }
 }
 
 @layer components {
   .matrix-glow {
-    text-shadow: 
+    text-shadow:
       0 0 5px #000,
       0 0 10px #000,
       0 0 15px #000,
       0 0 20px #000;
-    color: #F5E2C4;
+    color: #f5e2c4;
   }
 
   .matrix-border {
     border: 1px solid #000;
-    box-shadow: 
+    box-shadow:
       0 0 5px #000,
-      inset 0 0 5px rgba(0,0,0,0.1);
+      inset 0 0 5px rgba(0, 0, 0, 0.1);
   }
 
   .matrix-card {
-    background: linear-gradient(145deg, #F5E2C4, #E5D3B3);
+    background: linear-gradient(145deg, #f5e2c4, #e5d3b3);
     border: 1px solid #000;
-    box-shadow: 
-      0 0 10px rgba(0,0,0,0.15),
-      inset 0 0 20px rgba(0,0,0,0.05);
+    box-shadow:
+      0 0 10px rgba(0, 0, 0, 0.15),
+      inset 0 0 20px rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(10px);
     color: #000;
   }
 
   .matrix-button {
     background: linear-gradient(145deg, #000, #222);
-    border: 1px solid #F5E2C4;
-    color: #F5E2C4;
+    border: 1px solid #f5e2c4;
+    color: #f5e2c4;
     text-shadow: 0 0 5px #000;
-    box-shadow: 
-      0 0 10px rgba(0,0,0,0.2),
-      inset 0 0 10px rgba(0,0,0,0.08);
+    box-shadow:
+      0 0 10px rgba(0, 0, 0, 0.2),
+      inset 0 0 10px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
   }
 
   .matrix-button:hover {
     background: linear-gradient(145deg, #222, #000);
-    box-shadow: 
-      0 0 20px rgba(0,0,0,0.3),
-      inset 0 0 15px rgba(0,0,0,0.12);
+    box-shadow:
+      0 0 20px rgba(0, 0, 0, 0.3),
+      inset 0 0 15px rgba(0, 0, 0, 0.12);
     transform: translateY(-2px);
   }
 
@@ -180,37 +180,37 @@
     background: rgba(245, 226, 196, 0.8);
     border: 1px solid #000;
     color: #000;
-    box-shadow: 
-      0 0 5px rgba(0,0,0,0.1),
-      inset 0 0 10px rgba(0,0,0,0.05);
+    box-shadow:
+      0 0 5px rgba(0, 0, 0, 0.1),
+      inset 0 0 10px rgba(0, 0, 0, 0.05);
   }
 
   .matrix-input:focus {
-    box-shadow: 
-      0 0 15px rgba(0,0,0,0.2),
-      inset 0 0 15px rgba(0,0,0,0.08);
+    box-shadow:
+      0 0 15px rgba(0, 0, 0, 0.2),
+      inset 0 0 15px rgba(0, 0, 0, 0.08);
   }
 
   .matrix-text {
     color: #000;
-    text-shadow: 0 0 5px #F5E2C4;
+    text-shadow: 0 0 5px #f5e2c4;
   }
 
   .matrix-title {
     font-family: "Orbitron", monospace;
     font-weight: 900;
     color: #000;
-    text-shadow: 
-      0 0 10px #F5E2C4,
-      0 0 20px #F5E2C4,
-      0 0 30px #F5E2C4;
+    text-shadow:
+      0 0 10px #f5e2c4,
+      0 0 20px #f5e2c4,
+      0 0 30px #f5e2c4;
   }
 
   .matrix-subtitle {
     font-family: "Orbitron", monospace;
     font-weight: 700;
     color: #000;
-    text-shadow: 0 0 8px #F5E2C4;
+    text-shadow: 0 0 8px #f5e2c4;
   }
 
   .matrix-rain {
@@ -235,8 +235,8 @@
       90deg,
       transparent,
       transparent 2px,
-      rgba(0,0,0,0.08) 2px,
-      rgba(0,0,0,0.08) 4px
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
     );
     animation: matrix-rain 20s linear infinite;
   }
@@ -256,16 +256,16 @@
 
   @keyframes pulse-glow {
     from {
-      box-shadow: 
-        0 0 5px rgba(0,0,0,0.1),
-        0 0 10px rgba(0,0,0,0.08),
-        0 0 15px rgba(0,0,0,0.05);
+      box-shadow:
+        0 0 5px rgba(0, 0, 0, 0.1),
+        0 0 10px rgba(0, 0, 0, 0.08),
+        0 0 15px rgba(0, 0, 0, 0.05);
     }
     to {
-      box-shadow: 
-        0 0 10px rgba(0,0,0,0.2),
-        0 0 20px rgba(0,0,0,0.12),
-        0 0 30px rgba(0,0,0,0.08);
+      box-shadow:
+        0 0 10px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(0, 0, 0, 0.12),
+        0 0 30px rgba(0, 0, 0, 0.08);
     }
   }
 
@@ -298,7 +298,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.08), transparent);
     animation: matrix-scan 3s ease-in-out infinite;
   }
 
