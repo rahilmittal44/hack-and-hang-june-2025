@@ -3,7 +3,7 @@
 The game is called Pig.
 
 - 1 player, 1 die game
-    - Goal — Reach a score of 100
+    - Goal — Reach a score of 50
     - A new game will start on the first roll.
     - Continuously roll a die until 1 is rolled or the player calls hold — Consider hold or 1 as turns.
     - If a player rolls any other number than 1, the number is added to their turn score — consider these as rounds.
