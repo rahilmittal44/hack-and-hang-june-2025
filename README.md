@@ -1,53 +1,83 @@
 ## Permissionless 2025 Hack and Hang
 
-The game is called Pig.
+Welcome to the Pig Game challenge! Build your own implementation of the classic Pig dice game on Aptos using Move smart contracts.
 
-- 1 player, 1 die game
-    - Goal — Reach a score of 50
-    - A new game will start on the first roll.
-    - Continuously roll a die until 1 is rolled or the player calls hold — Consider hold or 1 as turns.
-    - If a player rolls any other number than 1, the number is added to their turn score — consider these as rounds.
-    - If it is 1, their current turn score is set to 0, and a new turn begins.
-    - If they call hold, their turn ends, and those points are added to their total score. A new turn begins.
-    - If the player calls complete game, the game ends, complete_game is called in pig master with the results.
-    - If the game has been completed, then it can be reset, and a new game started.
+## 🎮 Game Overview
+Pig is a simple dice game where players try to reach a score of 50 points:
 
-## Get Started
+Goal: Reach a score of 50 points in as few turns as possible
+Setup: 1 player, 1 die
+Gameplay:
 
-To get started, you will need to do the following:
+- Each turn, roll the die repeatedly until you roll a 1 or decide to "hold"
+- If you roll 1: you score nothing and your turn ends ("bust")
+- If you roll 2-6: add that number to your turn total and continue rolling
+- If you "hold": your turn total is added to your score and your turn ends
+- If the player calls complete game, the game ends, complete_game is called in pig master with the results.
+- If the game has been completed, then it can be reset, and a new game started.
 
-* [Fork this repository](https://github.com/aptos-labs/hack-and-hang-june-2025/fork)
-* [Clone your forked repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-* Install the [Aptos CLI](https://aptos.dev/en/build/cli)
-* Initialize an account for publishing the Move smart contract:
-    ```bash
-    aptos init --network testnet --profile pig-game
-    ```
-* Fund the account with some testnet APT using the [Faucet](https://aptos.dev/en/network/faucet).
-* Modify the Move smart contract code in `contract/pig-game` to implement the Pig Game logic.
-* (Optional) You can unit tests to test your contract in `contract/pig-game/tests`.
-    * Run the Move unit tests using the Aptos CLI in the `contract/pig-game` directory:
-      ```bash
-      aptos move test --dev
-      ```
-* Publish the contract to testnet in the `contract/pig-game` directory:
-    ```bash
-    aptos move publish --named-addresses pig_game=pig-game
-    ```
+## 🎯 Challenge Requirements
+What You Need to Build
+You'll implement your own version of the Pig game contract in contract/pig-game/sources/pig_game.move. The starter code provides the exact function signatures you must implement - do not change these signatures as the UI depends on them. Deploy your contract on testnet & once deployed, your contract will work with the provided UI at https://hack-and-hang-june-2025.vercel.app/
+
+## 🏗️ Project Structure
+contract/
+├── pig-game/          # 👈 Implement your game logic here
+│   ├── sources/
+│   │   └── pig_game.move    # Your implementation
+│   ├── Move.toml
+│   └── tests/
+└── pig-master/        # 👈 Global scoring system (pre-built)
+    ├── sources/
+    │   └── pig_master.move  # Tracks all players' stats
+    └── Move.toml
+
+website/               # React frontend (already deployed)
+├── src/
+└── package.json
+
+## Setup your Environment
+
+- [Fork this repository](https://github.com/aptos-labs/hack-and-hang-june-2025/fork)
+- [Clone your forked repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+- Install the [Aptos CLI](https://aptos.dev/en/build/cli)
+- Initialize your account on testnet with the following command:
+
+`aptos init --network testnet`
+
+- Fund your account with testnet tokens with the following command:
+
+`aptos account fund-with-faucet --account default`
+
+- Setup move project in your directory:
+
+`aptos move init --name pig-game`
+
+- Compile & deploy your contract:
+
+`aptos move compile` 
+
+`aptos move publish`
+
+- Test your contract:
+
+`aptos move test`
+
 * Visit the [website](https://hack-and-hang-june-2025.vercel.app/)
     * Connect your Aptos connect wallet to the website.
     * Fund the account with some testnet APT using the [Faucet](https://aptos.dev/en/network/faucet).
     * Enter your contract address in the input field (who deployed it).
     * Play the Pig game by rolling the die, holding, and completing the game.
 
-## Move Code
 
-1. Implement the [pig-game contract](https://github.com/aptos-labs/hack-and-hang-june-2025/tree/main/contract/pig-game/sources)
-2. When implementing the `complete_game` contract, make sure to call `pig_master_addr::pig_master::complete_game`.
+## Additional Notes
 
-## Layout
+- Linking to Pig Master: The pig_master contract tracks global leaderboards and statistics. When your game completes, report the result to the master contract for global tracking. 
+- For secure dice rolls, use Aptos's on-chain randomness API. Refer the [randomness docs](https://aptos.dev/en/build/smart-contracts/randomness) for more.
 
-- `contract/`: Contains the Move smart contract code
-    - `contract/pig-game`: This is the code for you to fill in the Pig Game contract.
-    - `contract/pig-master`: This is the code for maintaining scoring for the Pig game across all implementations.
-- `website/`: Contains the React website code
+## 📚 Learning Resources
+Core Aptos Development
+
+🏗️ Smart Contracts Guide: https://aptos.dev/en/build/smart-contracts
+📖 ToDo Move Contract Tutorial: https://aptos.dev/en/build/guides/build-e2e-dapp/1-create-smart-contract
+🎓 Aptos Learn: https://learn.aptoslabs.com/en/code-examples
