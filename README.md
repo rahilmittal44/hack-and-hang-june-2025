@@ -40,6 +40,11 @@ To get started, you will need to do the following:
     * Enter your contract address in the input field (who deployed it).
     * Play the Pig game by rolling the die, holding, and completing the game.
 
+## Move Code
+
+1. Implement the [pig-game contract](https://github.com/aptos-labs/hack-and-hang-june-2025/tree/main/contract/pig-game/sources)
+2. When implementing the `complete_game` contract, make sure to call `pig_master_addr::pig_master::complete_game`.
+
 ## Layout
 
 - `contract/`: Contains the Move smart contract code
