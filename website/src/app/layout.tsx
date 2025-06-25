@@ -9,9 +9,9 @@ import { WrongNetworkAlert } from "@/components/WrongNetworkAlert";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  applicationName: "Aptos Hack and Hang June 2025 - Pig Game",
-  title: "Aptos Hack and Hang June 2025 - Pig Game",
-  description: "Pig Game built on Aptos for Hack and Hang June 2025",
+  applicationName: "Aptos Hack and Hang June 2025 - Pig",
+  title: "Aptos Hack and Hang June 2025 - Pig",
+  description: "Pig built on Aptos for Hack and Hang June 2025",
   manifest: "/manifest.json",
   icons: {
     icon: [

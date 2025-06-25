@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useWalletClient } from "@thalalabs/surf/hooks";
 // Internal components
@@ -67,7 +67,8 @@ export function PigGame() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [gameTotalScore, setGameTotalScore] = useState<number>(0);
   const [gameTurnScore, setGameTurnScore] = useState<number>(0);
-  const [lastRoll, setLastRoll] = useState<number>(0);
+  const [rolling, setRolling] = useState(false);
+  const [displayRoll, setDisplayRoll] = useState<number>(1);
   const [topUserScore, setTopUserScore] = useState<{
     rounds: string;
     score: string;
@@ -89,11 +90,21 @@ export function PigGame() {
   const [round, setRound] = useState<number>(0);
   const [turn, setTurn] = useState<number>(0);
   const [gameOver, setGameOver] = useState<boolean>(false);
+  const [lastRoll, setLastRoll] = useState<number>(1);
+
+  const rollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   async function rollDice() {
     if (!connected || !client) {
       return;
     }
+    setRolling(true);
+    // Start rolling animation
+    if (rollIntervalRef.current) clearInterval(rollIntervalRef.current);
+    rollIntervalRef.current = setInterval(() => {
+      setDisplayRoll(Math.floor(Math.random() * 6) + 1);
+    }, 100);
+    // Call contract
     const committedTransaction = await client.submitTransaction({
       function: `${moduleAddress}::pig_game::roll_dice`,
       typeArguments: [],
@@ -105,11 +116,11 @@ export function PigGame() {
     queryClient.invalidateQueries({
       queryKey: ["pig-game-state", account?.address],
     });
-
     toast({
       title: "Success",
       description: `Transaction succeeded, hash: ${executedTransaction.hash}`,
     });
+    setRolling(false);
   }
 
   async function holdDice() {
@@ -318,10 +329,68 @@ export function PigGame() {
     },
   });
 
+  // When lastRoll changes, update displayRoll and stop rolling
   useEffect(() => {
-    if (data) {
+    if (rolling) return;
+    setDisplayRoll(gameOver ? 1 : lastRoll);
+    if (rollIntervalRef.current) {
+      clearInterval(rollIntervalRef.current);
+      rollIntervalRef.current = null;
     }
-  }, [data]);
+  }, [data, gameOver, lastRoll, rolling]);
+
+  // When rolling becomes false, ensure interval is cleared
+  useEffect(() => {
+    if (!rolling && rollIntervalRef.current) {
+      clearInterval(rollIntervalRef.current);
+      rollIntervalRef.current = null;
+    }
+  }, [rolling]);
+
+  // Dice SVG component
+  function Dice({ value, size = 48 }: { value: number; size?: number }) {
+    // Dots positions for 1-6
+    const dots = [
+      [],
+      [[0.5, 0.5]], // 1
+      [
+        [0.25, 0.25],
+        [0.75, 0.75],
+      ], // 2
+      [
+        [0.25, 0.25],
+        [0.5, 0.5],
+        [0.75, 0.75],
+      ], // 3
+      [
+        [0.25, 0.25],
+        [0.25, 0.75],
+        [0.75, 0.25],
+        [0.75, 0.75],
+      ], // 4
+      [
+        [0.25, 0.25],
+        [0.25, 0.75],
+        [0.5, 0.5],
+        [0.75, 0.25],
+        [0.75, 0.75],
+      ], // 5
+      [
+        [0.25, 0.25],
+        [0.25, 0.5],
+        [0.25, 0.75],
+        [0.75, 0.25],
+        [0.75, 0.5],
+        [0.75, 0.75],
+      ], // 6
+    ];
+    return (
+      <svg width={size} height={size} viewBox="0 0 48 48" className="mx-auto" style={{ display: "block" }}>
+        <rect x="4" y="4" width="40" height="40" rx="10" fill="#F5E2C4" stroke="#000" strokeWidth="3" />
+        {dots[value]?.map(([x, y], i) => <circle key={i} cx={4 + x * 40} cy={4 + y * 40} r="4" fill="#000" />)}
+      </svg>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-8">
@@ -350,7 +419,7 @@ export function PigGame() {
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="matrix-text">ROLL:</span>
-              <span className="matrix-glow text-xl font-bold">{lastRoll}</span>
+              <Dice value={rolling ? displayRoll : lastRoll} />
             </div>
             <div className="flex justify-between items-center">
               <span className="matrix-text">ROUND:</span>

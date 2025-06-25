@@ -21,7 +21,7 @@ function App() {
           <Card className="matrix-card w-full max-w-2xl">
             <CardContent className="flex flex-col gap-8 pt-8">
               <div className="text-center mb-4">
-                <h2 className="matrix-title text-3xl mb-2">APTOS ARENA</h2>
+                <h2 className="matrix-title text-3xl mb-2">APTOS ARENA - PIG</h2>
               </div>
               <PigGame />
             </CardContent>
@@ -29,7 +29,7 @@ function App() {
         ) : (
           <Card className="matrix-card w-full max-w-md">
             <CardHeader className="text-center">
-              <CardTitle className="matrix-title text-2xl mb-4">APTOS ARENA - PIG GAME</CardTitle>
+              <CardTitle className="matrix-title text-2xl mb-4">APTOS ARENA - PIG</CardTitle>
               <WalletSelector />
             </CardHeader>
           </Card>
