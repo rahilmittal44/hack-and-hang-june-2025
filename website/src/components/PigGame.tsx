@@ -11,6 +11,47 @@ import { Input } from "@/components/ui/input";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AccountAddress, Aptos, TypeTag, TypeTagAddress } from "@aptos-labs/ts-sdk";
 
+// Utility to shorten addresses
+function shortenAddress(addr?: string) {
+  if (!addr) return "";
+  if (addr.length <= 10) return addr;
+  return `${addr.slice(0, 5)}..${addr.slice(-3)}`;
+}
+
+// Address with tooltip and copy
+function AddressWithTooltip({ address }: { address?: string }) {
+  const [show, setShow] = useState(false);
+  const [copied, setCopied] = useState(false);
+  if (!address) return null;
+  return (
+    <span
+      className="relative cursor-pointer underline decoration-dotted"
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => {
+        setShow(false);
+        setCopied(false);
+      }}
+      tabIndex={0}
+      onFocus={() => setShow(true)}
+      onBlur={() => {
+        setShow(false);
+        setCopied(false);
+      }}
+      onClick={() => {
+        navigator.clipboard.writeText(address);
+        setCopied(true);
+      }}
+    >
+      {shortenAddress(address)}
+      {show && (
+        <span className="absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 whitespace-nowrap rounded bg-[#F5E2C4] text-black px-3 py-2 text-xs shadow-lg border border-black flex items-center gap-2">
+          <span>{copied ? "Copied!" : address}</span>
+        </span>
+      )}
+    </span>
+  );
+}
+
 export function PigGame() {
   const { account } = useWallet();
   const { client, connected } = useWalletClient();
@@ -284,6 +325,12 @@ export function PigGame() {
 
   return (
     <div className="flex flex-col gap-8">
+      {/* Game Over Banner */}
+      {gameOver && (
+        <div className="w-full text-center py-4 bg-black text-[#F5E2C4] text-2xl font-bold tracking-widest rounded shadow matrix-flicker mb-2">
+          GAME OVER
+        </div>
+      )}
       {/* Game Address Input */}
       <div className="space-y-2">
         <label className="matrix-subtitle text-sm">CONTRACT ADDRESS:</label>
@@ -327,10 +374,6 @@ export function PigGame() {
               <span className="matrix-text">TOTAL SCORE:</span>
               <span className="matrix-glow text-xl font-bold">{gameTotalScore.toString()}</span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="matrix-text">GAME OVER:</span>
-              <span className="matrix-glow text-xl font-bold">{gameOver.toString()}</span>
-            </div>
           </div>
         </div>
         <div className="matrix-card p-6 space-y-4">
@@ -343,16 +386,6 @@ export function PigGame() {
             <div className="flex justify-between items-center">
               <span className="matrix-text">TOTAL GAMES PLAYED:</span>
               <span className="matrix-glow text-xl font-bold">{contractGamesPlayed.toString()}</span>
-            </div>
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="matrix-text">TOP USER SCORE:</span>
-              <span className="matrix-glow text-xl font-bold">{/* TODO */}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="matrix-text">TOP GLOBAL SCORE:</span>
-              <span className="matrix-glow text-xl font-bold">{/* TODO */}</span>
             </div>
           </div>
         </div>
@@ -386,7 +419,7 @@ export function PigGame() {
             </div>
             <div className="flex justify-between items-center">
               <span className="matrix-text">User:</span>
-              <span className="matrix-glow text-xl font-bold">{topGlobalScore?.user}</span>
+              <AddressWithTooltip address={topGlobalScore?.user} />
             </div>
             <div className="flex justify-between items-center">
               <span className="matrix-text">Rounds:</span>
