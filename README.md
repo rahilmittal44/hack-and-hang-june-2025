@@ -45,9 +45,7 @@ website/               # React frontend (already deployed)
 
 `aptos init --network testnet`
 
-- Fund your account with testnet tokens with the following command:
-
-`aptos account fund-with-faucet --account default`
+- Fund your account with testnet tokens from the [faucet](https://aptos.dev/en/network/faucet)
 
 - Setup move project in your directory:
 
