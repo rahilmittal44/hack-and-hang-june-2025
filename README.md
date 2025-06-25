@@ -21,18 +21,18 @@ To get started, you will need to do the following:
 * Install the [Aptos CLI](https://aptos.dev/en/build/cli)
 * Initialize an account for publishing the Move smart contract:
     ```bash
-    aptos init --network testnet
+    aptos init --network testnet --profile pig-game
     ```
 * Fund the account with some testnet APT using the [Faucet](https://aptos.dev/en/network/faucet).
 * Modify the Move smart contract code in `contract/pig-game` to implement the Pig Game logic.
 * (Optional) You can unit tests to test your contract in `contract/pig-game/tests`.
     * Run the Move unit tests using the Aptos CLI in the `contract/pig-game` directory:
       ```bash
-      aptos move test
+      aptos move test --dev
       ```
 * Publish the contract to testnet in the `contract/pig-game` directory:
     ```bash
-    aptos move publish --named-addresses pig_game=<your_named_address>
+    aptos move publish --named-addresses pig_game=pig-game
     ```
 * Visit the [website](https://hack-and-hang-june-2025.vercel.app/)
     * Connect your Aptos connect wallet to the website.

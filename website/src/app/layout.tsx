@@ -16,8 +16,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-simple.svg", type: "image/svg+xml" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon.ico", type: "image/png" },
     ],
     apple: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },
@@ -28,8 +27,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="alternate icon" href="/favicon-simple.svg" type="image/svg+xml" />
-        <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
         <meta name="theme-color" content="#F5E2C4" />
       </head>

@@ -93,34 +93,50 @@ export function PigGame() {
   const [lastRoll, setLastRoll] = useState<number>(1);
 
   const rollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   async function rollDice() {
     if (!connected || !client) {
       return;
     }
     setRolling(true);
+    // Play dice sound
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.loop = true;
+      audioRef.current.play();
+    }
     // Start rolling animation
     if (rollIntervalRef.current) clearInterval(rollIntervalRef.current);
     rollIntervalRef.current = setInterval(() => {
       setDisplayRoll(Math.floor(Math.random() * 6) + 1);
     }, 100);
-    // Call contract
-    const committedTransaction = await client.submitTransaction({
-      function: `${moduleAddress}::pig_game::roll_dice`,
-      typeArguments: [],
-      functionArguments: [],
-    });
-    const executedTransaction = await aptosClient().waitForTransaction({
-      transactionHash: committedTransaction.hash,
-    });
-    queryClient.invalidateQueries({
-      queryKey: ["pig-game-state", account?.address],
-    });
-    toast({
-      title: "Success",
-      description: `Transaction succeeded, hash: ${executedTransaction.hash}`,
-    });
-    setRolling(false);
+    try {
+      // Call contract
+      const committedTransaction = await client.submitTransaction({
+        function: `${moduleAddress}::pig_game::roll_dice`,
+        typeArguments: [],
+        functionArguments: [],
+      });
+      const executedTransaction = await aptosClient().waitForTransaction({
+        transactionHash: committedTransaction.hash,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["pig-game-state", account?.address],
+      });
+      toast({
+        title: "Success",
+        description: `Transaction succeeded, hash: ${executedTransaction.hash}`,
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error instanceof Error ? error.message : String(error),
+      });
+    } finally {
+      setRolling(false);
+    }
   }
 
   async function holdDice() {
